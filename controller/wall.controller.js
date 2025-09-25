@@ -56,3 +56,34 @@ export const addComment = catchAsync(async (req, res) => {
     data: post,
   });
 });
+
+export const getAllPost = catchAsync(async(req,res)=>{
+    const post = await WallPost.find()
+    sendResponse(res,{
+        statusCode: 200,
+        success: true,
+        message: "post get successful",
+        data: post
+    })
+})
+export const getSinglePost = catchAsync(async(req,res)=>{
+    const id = req.params.id
+    const post = await WallPost.findById(id)
+    sendResponse(res,{
+        statusCode: 200,
+        success: true,
+        message: "post get successful",
+        data: post
+    })
+})
+export const updatePost = catchAsync(async(req,res)=>{
+    const id = req.params.id
+
+    const post = await WallPost.findByIdAndUpdate(id,{...req.body},{new: true})
+    sendResponse(res,{
+        statusCode: 200,
+        success: true,
+        message: "post get successful",
+        data: post
+    })
+})
