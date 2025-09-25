@@ -1,3 +1,4 @@
+import { Booking } from "../model/booking.model.js";
 import { paymentInfo } from "../model/payment.model.js";
 import { User } from "../model/user.model.js";
 import Stripe from "stripe";

@@ -1,27 +1,24 @@
-import express from 'express'
+import express from "express";
 import {
   //   getClientToken,
   //   makePayment,
   createPayment,
   confirmPayment,
-  createStripeConnectAccount,
+  onboardOwnerPayment,
   getStripeDashboardLink,
-} from '../controller/payment.controller.js'
+} from "../controller/payment.controller.js";
 
-
-const router = express.Router()
+const router = express.Router();
 
 // Create Payment
 router.post("/create-payment", createPayment);
 
 // Capture Payment
-router.post("/confirm-payment", confirmPayment)
+router.post("/confirm-payment", confirmPayment);
 
-
-router.post('/connect', createStripeConnectAccount)
+router.post("/connect", onboardOwnerPayment);
 
 //  Stripe dashboard login link
-router.get('/stripe-login-link/:userId', getStripeDashboardLink)
+router.get("/stripe-login-link/:userId", getStripeDashboardLink);
 
-
-export default router
+export default router;

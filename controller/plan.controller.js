@@ -112,7 +112,7 @@ export const PlanController = {
   // ================= Subscription Payment =================
   createSubscriptionPayment: catchAsync(async (req, res) => {
     const { planId } = req.body;
-    const userId = req.user._id; // field owner
+    const userId = req.user._id;
 
     if (!planId) {
       throw new AppError(httpStatus.BAD_REQUEST, "Plan ID is required");

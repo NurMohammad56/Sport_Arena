@@ -20,7 +20,6 @@ export const checkAvailability = catchAsync(async (req, res) => {
   });
 });
 
-
 export const createBooking = catchAsync(async (req, res) => {
   const { fieldId, date, startTime, endTime, duration } = req.body;
   const userId = req.user._id; // assuming auth middleware
