@@ -33,6 +33,7 @@ export const createBooking = catchAsync(async (req, res) => {
   const booking = await Booking.create({
     fieldId,
     userId,
+    ownerId: field.createdBy,
     date,
     startTime,
     endTime,
