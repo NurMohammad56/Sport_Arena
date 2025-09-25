@@ -16,6 +16,11 @@ const paymentInfoSchema = new mongoose.Schema(
       enum: ["complete", "pending", "failed"],
       default: "pending",
     },
+    status: {
+      type: String,
+      enum: ["success", "failed"],
+      default: "pending",
+    },
     seasonId: { type: String },
     transactionId: { type: String },
     paymentMethodNonce: { type: String },

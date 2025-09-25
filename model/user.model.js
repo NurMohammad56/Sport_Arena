@@ -45,6 +45,16 @@ const userSchema = new mongoose.Schema(
     lastActive: { type: Date, default: Date.now },
     dob: { type: Date, default: Date.now },
     deviceToken: { type: String },
+    stripeAccountId: { type: String },
+    ratings: [
+      {
+        raterId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+        rating: Number,
+        comment: String,
+      },
+    ],
+    averageRating: { type: Number, default: 0 },
+    ratingCount: { type: Number, default: 0 },
   },
   {
     timestamps: true,
