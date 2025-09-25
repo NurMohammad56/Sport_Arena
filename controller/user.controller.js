@@ -57,6 +57,54 @@ export const updateProfile = catchAsync(async (req, res) => {
   });
 });
 
+// Get advanced profile completion percentage
+export const getProfileCompletion = catchAsync(async (req, res) => {
+  const user = await User.findById(req.user._id).select(
+    "-password -refreshToken -verificationInfo -password_reset_token"
+  );
+
+  if (!user) {
+    throw new AppError(httpStatus.NOT_FOUND, "User not found");
+  }
+
+  // Define fields with weights
+  const weightedFields = {
+    name: 5,
+    email: 15,
+    "avatar.url": 15,
+    age: 10,
+    role: 5,
+    position: 20,
+    FavoriteClub: 20,
+    location: 10,
+  };
+
+  let totalPoints = 0;
+  let earnedPoints = 0;
+
+  for (const field in weightedFields) {
+    totalPoints += weightedFields[field];
+
+    if (field.includes(".")) {
+      const parts = field.split(".");
+      if (user[parts[0]] && user[parts[0]][parts[1]]) {
+        earnedPoints += weightedFields[field];
+      }
+    } else if (user[field]) {
+      earnedPoints += weightedFields[field];
+    }
+  }
+
+  const completionPercentage = Math.round((earnedPoints / totalPoints) * 100);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Profile completion fetched successfully",
+    data: { completionPercentage },
+  });
+});
+
 // Change user password
 export const changePassword = catchAsync(async (req, res) => {
   const { currentPassword, newPassword, confirmPassword } = req.body;
