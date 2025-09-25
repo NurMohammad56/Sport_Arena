@@ -22,6 +22,17 @@ const userSchema = new mongoose.Schema(
       url: { type: String, default: "" },
     },
 
+    role: {
+      type: String,
+      enum: ["user", "owner", "admin"],
+      default: "user",
+    },
+    status: {
+      type: String,
+      enum: ["free", "paid"],
+      default: "free",
+    },
+
     address: {
       type: String,
     },
