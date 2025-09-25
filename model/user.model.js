@@ -21,7 +21,28 @@ const userSchema = new mongoose.Schema(
       public_id: { type: String, default: "" },
       url: { type: String, default: "" },
     },
-
+    position: {
+      type: String,
+      enum: ["Goalkeeper", "Defender", "Midfielder", "Forward", "Any"],
+    },
+    FavoriteClub: {
+      type: String,
+    },
+    age: { type: Number },
+    role: {
+      type: String,
+      enum: ["user", "owner", "admin"],
+      default: "user",
+    },
+    location: {
+      type: { type: String, enum: ["point"], default: "point" },
+      coordinates: { type: [Number], default: [0, 0] },
+    },
+    status: {
+      type: String,
+      enum: ["free", "paid"],
+      default: "free",
+    },
     address: {
       type: String,
     },
@@ -34,6 +55,16 @@ const userSchema = new mongoose.Schema(
     lastActive: { type: Date, default: Date.now },
     dob: { type: Date, default: Date.now },
     deviceToken: { type: String },
+    stripeAccountId: { type: String },
+    ratings: [
+      {
+        raterId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+        rating: Number,
+        comment: String,
+      },
+    ],
+    averageRating: { type: Number, default: 0 },
+    ratingCount: { type: Number, default: 0 },
   },
   {
     timestamps: true,

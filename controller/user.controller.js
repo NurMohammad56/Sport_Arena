@@ -24,7 +24,7 @@ export const getProfile = catchAsync(async (req, res) => {
 
 // Update profile
 export const updateProfile = catchAsync(async (req, res) => {
-  const { name, dob } = req.body;
+  const { name, position, age, FavoriteClub, location } = req.body;
 
   // Find user
   const user = await User.findById(req.user._id).select(
@@ -36,9 +36,10 @@ export const updateProfile = catchAsync(async (req, res) => {
 
   // Update only provided fields
   if (name) user.name = name;
-  if (dob) user.dob = dob;
-
-  console.log(req.file);
+  if (age) user.age = age;
+  if (position) user.position = position;
+  if (FavoriteClub) user.FavoriteClub = FavoriteClub;
+  if (location) user.location = location;
 
   if (req.file) {
     const result = await uploadOnCloudinary(req.file.buffer);
